@@ -1,7 +1,7 @@
-Neo_Listens
+Warmup
 ===========
 
-Sample Event Listener / Triggers
+Warmup Neo4j by touching all nodes / relationships / properties.
 
 
 1. Build it:
@@ -12,33 +12,9 @@ Sample Event Listener / Triggers
 
 3. Start your Neo4j Server
 
-4. Run these queries, tailing the graph.db/log/console.log file:
+4. Default delay is 60 seconds after the server has started.
 
-        CREATE (max:User {name:"Max"}) RETURN max;
+5. Results are logged into your logs/neo4j.log file.
 
-        CREATE (al:Suspect {name:"Al Capone"}) RETURN al;
-
-        MATCH (max:User),(al:Suspect)
-        WHERE max.name = "Max" AND al.name = "Al Capone"
-        CREATE (max)-[r:KNOWS]->(al)
-        RETURN r;
-
-        CREATE (monica:User {name:"Monica"}) RETURN monica;
-
-        MATCH (max:User),(monica:User)
-        WHERE max.name = "Max" AND monica.name = "Monica"
-        CREATE (max)-[r:KNOWS]->(monica)
-        RETURN r;
-
-        MATCH (monica:User)
-        WHERE monica.name = "Monica"
-        SET monica :Suspect
-        RETURN monica;
-
-5. You should see:
-
-        A new Suspect has been created!
-        A new direct relationship to a Suspect has been created!
-        A new indirect relationship to a Suspect has been created!
-        A new Suspect has been identified!
+       
 
