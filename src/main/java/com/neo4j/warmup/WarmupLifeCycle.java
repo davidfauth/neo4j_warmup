@@ -1,16 +1,12 @@
-package org.neo4j.jpmc.warmup;
+package com.neo4j.warmup;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.configuration.Config;
-import org.neo4j.kernel.lifecycle.Lifecycle;
 import org.neo4j.kernel.lifecycle.LifecycleAdapter;
 
-import java.util.Collections;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +18,6 @@ public class WarmupLifeCycle extends LifecycleAdapter {
 
     public WarmupLifeCycle(GraphDatabaseService graphDatabaseService) {
         this.graphDatabaseService = graphDatabaseService;
-
     }
 
     @Override
@@ -33,6 +28,7 @@ public class WarmupLifeCycle extends LifecycleAdapter {
             warmupCreationFuture = new ScheduledThreadPoolExecutor(1).scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println("warming up");
                     try (Transaction tx = graphDatabaseService.beginTx()) {
 						for (Node node : graphDatabaseService.getAllNodes()) {
 						     node.getPropertyKeys();
@@ -44,6 +40,8 @@ public class WarmupLifeCycle extends LifecycleAdapter {
                     } catch (RuntimeException e) {
                         e.printStackTrace();
                         throw e;
+                    } finally {
+                        warmupCreationFuture.cancel(false);
                     }
                 }
 
