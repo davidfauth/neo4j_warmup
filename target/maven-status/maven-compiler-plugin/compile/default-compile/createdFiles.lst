@@ -1,0 +1,5 @@
+org/neo4j/jpmc/warmup/WarmupKernelExtensionFactory$1.class
+org/neo4j/jpmc/warmup/WarmupLifeCycle$1.class
+org/neo4j/jpmc/warmup/WarmupLifeCycle.class
+org/neo4j/jpmc/warmup/WarmupKernelExtensionFactory$Dependencies.class
+org/neo4j/jpmc/warmup/WarmupKernelExtensionFactory.class
