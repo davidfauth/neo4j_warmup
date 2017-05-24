@@ -2,7 +2,7 @@ package org.neo4j.jpmc.warmup;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
-
+import org.neo4j.kernel.configuration.Config;
 
 import org.neo4j.kernel.extension.KernelExtensionFactory;
 import org.neo4j.kernel.impl.spi.KernelContext;
@@ -32,7 +32,8 @@ public class WarmupKernelExtensionFactory extends KernelExtensionFactory<WarmupK
             @Override
             public void start() throws Throwable {
                 dependencies.getGraphDatabaseService();
-	            handler = new WarmupLifeCycle(dependencies.getGraphDatabaseService());
+	            new WarmupLifeCycle(dependencies.getGraphDatabaseService());
+				// never gets to starting warmupLifeCycle
 //				dependencies.getGraphDatabaseService().registerKernelEventHandler(handler);
             	}
 
@@ -46,6 +47,7 @@ public class WarmupKernelExtensionFactory extends KernelExtensionFactory<WarmupK
 
     interface Dependencies {
         GraphDatabaseService getGraphDatabaseService();
+        Config getConfig();
     }
 
     public WarmupKernelExtensionFactory() {
