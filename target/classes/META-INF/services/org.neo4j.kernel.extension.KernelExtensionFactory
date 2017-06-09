@@ -1,1 +1,1 @@
-org.neo4j.jpmc.warmup.WarmupKernelExtensionFactory
+com.neo4j.warmup.WarmupKernelExtensionFactory
